@@ -6,7 +6,7 @@ import { getSmurfs, addSmurf } from "../actions/smurf_act";
 function Smurfs(props) {
 
   const[smurfName, setSmurfName] = useState("");
-  const[smurfAge, setSmurfAge] = useState();
+  const[smurfAge, setSmurfAge] = useState("");
   const[smurfHeight, setSmurfHeight] = useState("");
 
   const fetchSmurf = e => {
@@ -21,7 +21,10 @@ function Smurfs(props) {
       age: smurfAge,
       height: smurfHeight,
       id: Date.now()
-    })
+    });
+    setSmurfName("");
+    setSmurfAge("");
+    setSmurfHeight("")
   }
 
   function handleNameChange(e){
@@ -43,9 +46,9 @@ function Smurfs(props) {
     <div>
 
       {props.isFetching && <p>Fetching your Smurfs</p>}
-      <div>
+      <div className="AllCards" >
         {props.smurfs.map(smurf => (
-          <div>
+          <div className="SmurfCard" >
             <h4 key={smurf.id}>{smurf.name}</h4>
             <p>Hello, my name is {smurf.name}. My age is {smurf.age} and height is {smurf.height}. </p>
           </div>
@@ -54,7 +57,7 @@ function Smurfs(props) {
       {props.error && <p>{props.error}</p>}
       <button onClick={fetchSmurf}>See our smurfs</button>
 
-      <form onSubmit = {handleSubmit}>
+      <form className="inputs" onSubmit = {handleSubmit}>
         <input 
           type="text"
           placeholder="Name"
